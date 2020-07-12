@@ -57,7 +57,6 @@ exports.getPosts = (req,res,next) => {
         }
         next(err);
     });
-/*      */
 }
 
 exports.createPost = (req,res,next) => {

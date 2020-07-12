@@ -1,11 +1,13 @@
 const express = require('express');
 const {body, param, query} = require('express-validator/check');
 
+const isAuth = require('./../middlewares/is-auth').isAuth;
+
 const feedController = require('./../controllers/feed');
 
 const router = express.Router();
 
-router.get('/posts',[
+router.get('/posts',isAuth,[
         query('page').custom(page => {
             if(page){
                 if(page >= 1){

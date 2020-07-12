@@ -6,10 +6,19 @@ const comProps = {
 }
 
 const userSchema = new mongoose.Schema({
-    firstName:comProps,
-    lastName:comProps,
-    email:comProps,
-    password:comProps
+    name:comProps,
+    email:{...comProps, unique:true},
+    password:comProps,
+    status:{
+        type:String,
+        default:"new"
+    },
+    posts:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ]
 },{timestamps:true});
 
 module.exports = mongoose.model('User', userSchema);

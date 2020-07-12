@@ -8,6 +8,7 @@ const multer = require('multer');
 
 const rootDir = require('./util/rootDir');
 
+const authRouter = require('./routes/auth');
 const feedRouter = require('./routes/feed.js');
 
 const app = express();
@@ -67,6 +68,7 @@ app.use(multer({storage:fileStorage, fileFilter:fileFilter}).single('image'));
 app.use(express.static(path.join(rootDir, 'public')));
 
 app.use("/feed",feedRouter);
+app.use("/auth", authRouter);
 
 app.use((error, req,res,next) => {
     const statusCode = error.statusCode || 500;
@@ -74,7 +76,7 @@ app.use((error, req,res,next) => {
         msg:error.message
     });
 });
-
+  
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     app.listen(process.env.PORT);
 }).catch(err => {errorHandlerListener.listen(5000);}); 
